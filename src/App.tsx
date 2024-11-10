@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import "./App.css";
 import { Board } from "./components/board/board.component";
 import { Input } from "./components/input/input.component";
-//import { Data } from "./sampleData";
 import { v4 as uuidv4 } from "uuid";
 
 type Note = {
