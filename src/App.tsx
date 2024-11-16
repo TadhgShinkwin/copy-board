@@ -1,7 +1,17 @@
 import { useState, useEffect } from "react";
 import "./App.css";
+import {
+  AddButton,
+  AppBody,
+  ControlsContainer,
+  ControlsSpacer,
+  HeadingsContainer,
+  Subtitle,
+  Title,
+} from "./App.styles";
 import { Board } from "./components/board/board.component";
-import { Input } from "./components/input/input.component";
+import Input from "./components/input/input.component";
+import Search from "./components/search/search.component";
 import { v4 as uuidv4 } from "uuid";
 
 type Card = {
@@ -11,6 +21,7 @@ type Card = {
 
 function App() {
   const [cards, setCards] = useState<Card[]>([]);
+  const [isAdding, setIsAdding] = useState<boolean>(false);
 
   const updateCards = () => {
     localStorage.setItem("cards", JSON.stringify(cards));
@@ -29,6 +40,7 @@ function App() {
       text: text,
     };
     setCards([...cards, newCard]);
+    setIsAdding(false);
   };
 
   const deleteCard = (id: string) => {
@@ -49,12 +61,24 @@ function App() {
     }
   }, [cards]);
 
+  const closeInput = () => {
+    setIsAdding(false);
+  };
+
   return (
-    <>
-      <h1>Copy Board</h1>
-      <Input saveCard={addCard} />
+    <AppBody>
+      <HeadingsContainer>
+        <Title>CopyBoard</Title>
+        <Subtitle>Quick access to your frequently used text</Subtitle>
+      </HeadingsContainer>
+      <ControlsContainer>
+        <Search />
+        <ControlsSpacer />
+        <AddButton onClick={() => setIsAdding(true)}>+ Add New</AddButton>
+      </ControlsContainer>
       <Board cards={cards} deleteCard={deleteCard} />
-    </>
+      {isAdding && <Input saveCard={addCard} closeInput={closeInput} />}
+    </AppBody>
   );
 }
 

@@ -24,20 +24,18 @@ export const EditModal = ({
     endEditing();
   };
 
-  const detectOutsideClick = () => {
-    useEffect(() => {
-      function handleOutsideClick(event: any) {
-        if (editRef.current && !editRef.current.contains(event.target)) {
-          endEditing();
-        }
+  useEffect(() => {
+    function handleOutsideClick(event: MouseEvent) {
+      if (editRef.current && !editRef.current.contains(event.target as Node)) {
+        endEditing();
       }
-      document.addEventListener("mousedown", handleOutsideClick);
-      return () => {
-        document.removeEventListener("mousedown", handleOutsideClick);
-      };
-    }, [editRef]);
-  };
-  detectOutsideClick();
+    }
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [editRef, endEditing]);
+
   return (
     <EditModalContainer ref={editRef}>
       <CloseIcon onClick={endEditing} />

@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { BoardContainer } from "./board.styles";
 import { Card } from "../card/card.component";
 import { EditModal } from "../editModal/editModal.component";
