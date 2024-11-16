@@ -20,7 +20,7 @@ export const TextEdit = styled.textarea`
 `;
 
 export const CardContainer = styled.div`
-  width: 100px;
+  width: 150px;
   background: white;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   border-radius: 14px;
@@ -30,11 +30,11 @@ export const CardContainer = styled.div`
     ${IconContainer} {
       opacity: 1;
     }
-  }
+  }    
 `;
 
 export const CardText = styled.div`
   display: flex;
   justify-content: flex-start;
-  cursor: pointer;
+  cursor: copy;
 `;

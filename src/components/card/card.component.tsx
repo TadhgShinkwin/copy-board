@@ -9,6 +9,7 @@ type CardProps = {
 };
 
 export const Card = ({ content, id, deleteNote, editNote }: CardProps) => {
+  // TODO: Animation for copy confirmation and delete.
   const copyToClipboard = () => {
     navigator.clipboard.writeText(content);
   };
