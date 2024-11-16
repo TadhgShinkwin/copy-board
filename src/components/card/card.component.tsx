@@ -4,11 +4,16 @@ import { FaTrash, FaEdit } from "react-icons/fa";
 type CardProps = {
   content: string;
   id: string;
-  deleteNote: (id: string) => void;
-  editNote: (id: string) => void;
+  deleteCard: (id: string) => void;
+  editCard: (id: string) => void;
 };
 
-export const Card = ({ content, id, deleteNote, editNote }: CardProps) => {
+export const Card = ({
+  content,
+  id,
+  deleteCard: deleteCard,
+  editCard: editCard,
+}: CardProps) => {
   // TODO: Animation for copy confirmation and delete.
   const copyToClipboard = () => {
     navigator.clipboard.writeText(content);
@@ -16,12 +21,12 @@ export const Card = ({ content, id, deleteNote, editNote }: CardProps) => {
 
   const trashClick = (e: React.MouseEvent<SVGElement>) => {
     e.stopPropagation();
-    deleteNote(id);
+    deleteCard(id);
   };
 
   const editClick = (e: React.MouseEvent<SVGElement>) => {
     e.stopPropagation();
-    editNote(id);
+    editCard(id);
   };
 
   return (

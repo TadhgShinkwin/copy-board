@@ -4,56 +4,56 @@ import { Board } from "./components/board/board.component";
 import { Input } from "./components/input/input.component";
 import { v4 as uuidv4 } from "uuid";
 
-type Note = {
+type Card = {
   id: string;
   text: string;
 };
 
 function App() {
-  const [notes, setNotes] = useState<Note[]>([]);
+  const [cards, setCards] = useState<Card[]>([]);
 
-  const updateNotes = () => {
-    localStorage.setItem("notes", JSON.stringify(notes));
+  const updateCards = () => {
+    localStorage.setItem("cards", JSON.stringify(cards));
   };
 
-  const retrieveNotes = () => {
-    const savedNotes = localStorage.getItem("notes");
-    if (savedNotes) {
-      setNotes(JSON.parse(savedNotes));
+  const retrieveCards = () => {
+    const savedCards = localStorage.getItem("cards");
+    if (savedCards) {
+      setCards(JSON.parse(savedCards));
     }
   };
 
-  const addNote = (text: string) => {
-    const newNote = {
+  const addCard = (text: string) => {
+    const newCard = {
       id: uuidv4(),
       text: text,
     };
-    setNotes([...notes, newNote]);
+    setCards([...cards, newCard]);
   };
 
-  const deleteNote = (id: string) => {
-    console.log(`Deleting note: ${id}`);
-    setNotes(notes.filter((note) => note.id !== id));
-    if (notes.length === 1) {
-      localStorage.removeItem("notes");
+  const deleteCard = (id: string) => {
+    console.log(`Deleting card: ${id}`);
+    setCards(cards.filter((card) => card.id !== id));
+    if (cards.length === 1) {
+      localStorage.removeItem("cards");
     }
   };
 
   useEffect(() => {
-    retrieveNotes();
+    retrieveCards();
   }, []);
 
   useEffect(() => {
-    if (notes.length > 0) {
-      updateNotes();
+    if (cards.length > 0) {
+      updateCards();
     }
-  }, [notes]);
+  }, [cards]);
 
   return (
     <>
       <h1>Copy Board</h1>
-      <Input saveNote={addNote} />
-      <Board cards={notes} deleteNote={deleteNote} />
+      <Input saveCard={addCard} />
+      <Board cards={cards} deleteCard={deleteCard} />
     </>
   );
 }

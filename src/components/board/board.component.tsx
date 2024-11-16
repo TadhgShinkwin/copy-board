@@ -6,17 +6,17 @@ import { CardType } from "../../types/card";
 
 export const Board = ({
   cards,
-  deleteNote,
+  deleteCard: deleteCard,
 }: {
   cards: CardType[];
-  deleteNote: (id: string) => void;
+  deleteCard: (id: string) => void;
 }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [editingNote, setEditingNote] = useState<CardType | null>(null);
+  const [editingCard, setEditingCard] = useState<CardType | null>(null);
 
-  const editNote = (note: CardType) => {
+  const editCard = (card: CardType) => {
     setIsEditing(true);
-    setEditingNote(note);
+    setEditingCard(card);
   };
 
   const endEditing = () => {
@@ -31,15 +31,15 @@ export const Board = ({
             key={card.id}
             content={card.text}
             id={card.id}
-            deleteNote={deleteNote}
-            editNote={() => editNote(card)}
+            deleteCard={deleteCard}
+            editCard={() => editCard(card)}
           />
         ))
       ) : (
         <h1>Try adding some cards</h1>
       )}
-      {isEditing && editingNote && (
-        <EditModal endEditing={endEditing} note={editingNote} />
+      {isEditing && editingCard && (
+        <EditModal endEditing={endEditing} card={editingCard} />
       )}
     </BoardContainer>
   );

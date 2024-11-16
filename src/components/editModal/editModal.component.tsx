@@ -10,16 +10,16 @@ import {
 
 export const EditModal = ({
   endEditing,
-  note,
+  card: card,
 }: {
   endEditing: () => void;
-  note: CardType;
+  card: CardType;
 }) => {
-  const [currentContent, setCurrentContent] = useState(note.text);
+  const [currentContent, setCurrentContent] = useState(card.text);
   const editRef = useRef<HTMLDivElement>(null);
 
-  const saveNote = () => {
-    // TODO: Save note to local storage
+  const saveCard = () => {
+    // TODO: Save card to local storage
     console.log(currentContent);
     endEditing();
   };
@@ -46,7 +46,7 @@ export const EditModal = ({
         value={currentContent}
         onChange={(e) => setCurrentContent(e.target.value)}
       />
-      <EditModalButton onClick={() => saveNote()}>Save</EditModalButton>
+      <EditModalButton onClick={() => saveCard()}>Save</EditModalButton>
     </EditModalContainer>
   );
 };

@@ -2,16 +2,16 @@ import { useState } from "react";
 import { InputComponent } from "./input.styles";
 
 type InputProps = {
-  saveNote: (text: string) => void;
+  saveCard: (text: string) => void;
 };
 
-export const Input = ({ saveNote }: InputProps) => {
+export const Input = ({ saveCard: saveCard }: InputProps) => {
   const [currentText, setCurrentText] = useState("");
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (currentText.trim() !== "") {
-      saveNote(currentText);
+      saveCard(currentText);
       setCurrentText("");
     }
   };
