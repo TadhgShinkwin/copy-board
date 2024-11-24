@@ -1,4 +1,10 @@
-import { CardContainer, IconContainer, CardText } from "./card.styles";
+import { useState } from "react";
+import {
+  CardContainer,
+  CopyConfirm,
+  IconContainer,
+  CardText,
+} from "./card.styles";
 import { FaTrash, FaEdit } from "react-icons/fa";
 
 type CardProps = {
@@ -8,6 +14,11 @@ type CardProps = {
   editCard: (id: string) => void;
 };
 
+interface Position {
+  x: number;
+  y: number;
+}
+
 export const Card = ({
   content,
   id,
@@ -15,8 +26,28 @@ export const Card = ({
   editCard: editCard,
 }: CardProps) => {
   // TODO: Animation for copy confirmation and delete.
-  const copyToClipboard = () => {
+  const notificationDuration = 1000;
+  const [notificationPosition, setNotificationPosition] = useState<Position>({
+    x: 0,
+    y: 0,
+  });
+  const [showCopyNotification, setShowCopyNotification] =
+    useState<boolean>(false);
+
+  const copyToClipboard = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setNotificationPosition({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+
     navigator.clipboard.writeText(content);
+
+    setShowCopyNotification(true);
+
+    setTimeout(() => {
+      setShowCopyNotification(false);
+    }, notificationDuration);
   };
 
   const trashClick = (e: React.MouseEvent<SVGElement>) => {
@@ -36,6 +67,15 @@ export const Card = ({
         <FaEdit size="0.8em" onClick={(e) => editClick(e)} />
       </IconContainer>
       <CardText>{content}</CardText>
+      {showCopyNotification && (
+        <CopyConfirm
+          x={notificationPosition.x}
+          y={notificationPosition.y}
+          duration={notificationDuration}
+        >
+          <span>✔ Text Copied!</span>
+        </CopyConfirm>
+      )}
     </CardContainer>
   );
 };
