@@ -10,8 +10,9 @@ export const IconContainer = styled.div`
   color: #797d7a;
   cursor: pointer;
   margin-bottom: 5px;
-  margin: -15px -10px 10px 0; //Only when not using icons
+  margin: -15px -10px 10px 0;
 `;
+// Last line above only when not using fa-icons
 
 export const IconButton = styled.button`
   background: none;
