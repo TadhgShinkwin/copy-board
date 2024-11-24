@@ -49,7 +49,7 @@ const Input = ({ saveCard: saveCard, closeInput }: InputProps) => {
         <textarea
           value={currentText}
           onChange={(e) => setCurrentText(e.target.value)}
-        ></textarea>
+        />
         <button onClick={() => closeInput()}>Cancel</button>
         <button type="submit">Submit</button>
       </InputComponent>

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BoardContainer } from "./board.styles";
+import { BoardContainer, Placeholder } from "./board.styles";
 import { Card } from "../card/card.component";
 import { EditModal } from "../editModal/editModal.component";
 import { CardType } from "../../types/card";
@@ -36,7 +36,7 @@ export const Board = ({
           />
         ))
       ) : (
-        <h1>Try adding some cards</h1>
+        <Placeholder>Try adding some cards</Placeholder>
       )}
       {isEditing && editingCard && (
         <EditModal endEditing={endEditing} card={editingCard} />
