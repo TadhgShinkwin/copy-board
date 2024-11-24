@@ -1,11 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import {
-  InputComponent,
+  InputContainer,
+  InputField,
   InputHeader,
   InputModal,
   InputTitle,
   TitleAccent,
 } from "./input.styles";
+import { CloseIcon } from "../editModal/editModal.styles";
 
 type InputProps = {
   saveCard: (text: string) => void;
@@ -13,14 +15,16 @@ type InputProps = {
 };
 
 const Input = ({ saveCard: saveCard, closeInput }: InputProps) => {
-  const [currentText, setCurrentText] = useState("");
+  const [currentContent, setCurrentContent] = useState("");
+  const [currentTitle, setCurrentTitle] = useState("");
+
   const inputRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (currentText.trim() !== "") {
-      saveCard(currentText);
-      setCurrentText("");
+    if (currentContent.trim() !== "") {
+      saveCard(currentContent);
+      setCurrentContent("");
     }
   };
 
@@ -41,18 +45,25 @@ const Input = ({ saveCard: saveCard, closeInput }: InputProps) => {
 
   return (
     <InputModal ref={inputRef}>
+      <CloseIcon onClick={closeInput} />
       <InputHeader>
         <TitleAccent />
         <InputTitle>Add New Card</InputTitle>
       </InputHeader>
-      <InputComponent onSubmit={handleSubmit}>
-        <textarea
-          value={currentText}
-          onChange={(e) => setCurrentText(e.target.value)}
+      <InputContainer onSubmit={handleSubmit}>
+        <InputField
+          placeholder="add title..."
+          value={currentTitle}
+          onChange={(e) => setCurrentTitle(e.target.value)}
+        />
+        <InputField
+          placeholder="add content..."
+          value={currentContent}
+          onChange={(e) => setCurrentContent(e.target.value)}
         />
         <button onClick={() => closeInput()}>Cancel</button>
         <button type="submit">Submit</button>
-      </InputComponent>
+      </InputContainer>
     </InputModal>
   );
 };

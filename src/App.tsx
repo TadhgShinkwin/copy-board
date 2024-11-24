@@ -74,7 +74,9 @@ function App() {
       <ControlsContainer>
         <Search />
         <ControlsSpacer />
-        <AddButton onClick={() => setIsAdding(true)}>+ Add New</AddButton>
+        <AddButton onClick={() => setIsAdding(true)}>
+          &#x002B; Add New
+        </AddButton>
       </ControlsContainer>
       <Board cards={cards} deleteCard={deleteCard} />
       {isAdding && <Input saveCard={addCard} closeInput={closeInput} />}

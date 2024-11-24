@@ -12,7 +12,8 @@ export const BoardContainer = styled.div`
 
 export const Placeholder = styled.h1`
   position: absolute;
-  top: 50%;  
+  top: 50%;
+  left: 40%;  
   color: #64748b;
   font-weight: 500;
   text-transform: capitalize;

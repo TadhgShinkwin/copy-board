@@ -44,7 +44,7 @@ export const AddButton = styled.button`
     color: white;
     border: none;
     border-radius: 0.5rem;  
-    font-weight: 500;
+    font-weight: 700;
     white-space: nowrap;
     transition: background-color 0.2s;
     cursor: pointer;

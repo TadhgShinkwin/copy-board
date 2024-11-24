@@ -27,6 +27,7 @@ export const CloseIcon = styled(FaTimes)`
   position: absolute;
   top: 10px;
   right: 10px;
+  cursor: pointer;
 `;
 
 export const Title = styled.h2`
