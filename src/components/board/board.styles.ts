@@ -1,12 +1,13 @@
 import styled from "styled-components";
 
 export const BoardContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: center;  
-  justify-content: center;
+
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
 `;
 
 export const Placeholder = styled.h1`

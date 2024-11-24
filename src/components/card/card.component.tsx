@@ -2,10 +2,11 @@ import { useState } from "react";
 import {
   CardContainer,
   CopyConfirm,
+  IconButton,
   IconContainer,
   CardText,
 } from "./card.styles";
-import { FaTrash, FaEdit } from "react-icons/fa";
+//import { FaTrash, FaEdit } from "react-icons/fa"; undecided about currrent buttons or these icons
 
 type CardProps = {
   content: string;
@@ -50,12 +51,12 @@ export const Card = ({
     }, notificationDuration);
   };
 
-  const trashClick = (e: React.MouseEvent<SVGElement>) => {
+  const trashClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
     deleteCard(id);
   };
 
-  const editClick = (e: React.MouseEvent<SVGElement>) => {
+  const editClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
     editCard(id);
   };
@@ -63,8 +64,9 @@ export const Card = ({
   return (
     <CardContainer onClick={copyToClipboard}>
       <IconContainer>
-        <FaTrash size="0.8em" onClick={(e) => trashClick(e)} />
-        <FaEdit size="0.8em" onClick={(e) => editClick(e)} />
+        <IconButton onClick={() => copyToClipboard}>📋</IconButton>
+        <IconButton onClick={(e) => editClick(e)}>✏️</IconButton>
+        <IconButton onClick={(e) => trashClick(e)}>❌</IconButton>
       </IconContainer>
       <CardText>{content}</CardText>
       {showCopyNotification && (

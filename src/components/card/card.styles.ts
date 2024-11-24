@@ -10,6 +10,13 @@ export const IconContainer = styled.div`
   color: #797d7a;
   cursor: pointer;
   margin-bottom: 5px;
+  margin: -15px -10px 10px 0; //Only when not using icons
+`;
+
+export const IconButton = styled.button`
+  background: none;
+  border: none;
+  cursor: pointer;
 `;
 
 export const TextEdit = styled.textarea`
@@ -23,7 +30,6 @@ export const CardContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  width: 150px;
   background: white;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   border-radius: 0.75rem;
