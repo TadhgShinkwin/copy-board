@@ -29,8 +29,7 @@ export const Board = ({
         cards.map((card) => (
           <Card
             key={card.id}
-            content={card.text}
-            id={card.id}
+            card={card}
             deleteCard={deleteCard}
             editCard={() => editCard(card)}
           />

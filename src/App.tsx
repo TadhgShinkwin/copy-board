@@ -12,15 +12,11 @@ import {
 import { Board } from "./components/board/board.component";
 import Input from "./components/input/input.component";
 import Search from "./components/search/search.component";
+import { CardType } from "./types/card";
 import { v4 as uuidv4 } from "uuid";
 
-type Card = {
-  id: string;
-  text: string;
-};
-
 function App() {
-  const [cards, setCards] = useState<Card[]>([]);
+  const [cards, setCards] = useState<CardType[]>([]);
   const [isAdding, setIsAdding] = useState<boolean>(false);
 
   const updateCards = () => {
@@ -34,9 +30,10 @@ function App() {
     }
   };
 
-  const addCard = (text: string) => {
+  const addCard = (text: string, title: string) => {
     const newCard = {
       id: uuidv4(),
+      title: title,
       text: text,
     };
     setCards([...cards, newCard]);

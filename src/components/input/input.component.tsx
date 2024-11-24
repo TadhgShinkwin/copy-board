@@ -10,7 +10,7 @@ import {
 import { CloseIcon } from "../editModal/editModal.styles";
 
 type InputProps = {
-  saveCard: (text: string) => void;
+  saveCard: (text: string, title: string) => void;
   closeInput: () => void;
 };
 
@@ -23,7 +23,7 @@ const Input = ({ saveCard: saveCard, closeInput }: InputProps) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (currentContent.trim() !== "") {
-      saveCard(currentContent);
+      saveCard(currentContent, currentTitle);
       setCurrentContent("");
     }
   };

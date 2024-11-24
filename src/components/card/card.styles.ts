@@ -9,8 +9,6 @@ export const IconContainer = styled.div`
   transition: opacity 0.3s ease;
   color: #797d7a;
   cursor: pointer;
-  margin-bottom: 5px;
-  margin: -15px -10px 10px 0;
 `;
 // Last line above only when not using fa-icons
 
@@ -59,6 +57,18 @@ export const CardText = styled.div`
   -webkit-line-clamp: 5;
   -webkit-box-orient: vertical;
   line-height: 1.5;
+`;
+
+export const CardTitle = styled.h3`
+  color: #1e293b;
+  font-weight: 600;
+  font-size: 1.1rem;
+`;
+
+export const CardHeader = styled.div`
+  display: flex;
+  margin: -15px -10px 10px 0;
+  justify-content: space-between;
 `;
 
 interface NotificationProps {

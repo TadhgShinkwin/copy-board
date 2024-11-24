@@ -1,16 +1,18 @@
 import { useState } from "react";
 import {
   CardContainer,
+  CardText,
+  CardTitle,
+  CardHeader,
   CopyConfirm,
   IconButton,
   IconContainer,
-  CardText,
 } from "./card.styles";
+import { CardType } from "../../types/card";
 //import { FaTrash, FaEdit } from "react-icons/fa"; undecided about currrent buttons or these icons
 
 type CardProps = {
-  content: string;
-  id: string;
+  card: CardType;
   deleteCard: (id: string) => void;
   editCard: (id: string) => void;
 };
@@ -21,8 +23,7 @@ interface Position {
 }
 
 export const Card = ({
-  content,
-  id,
+  card,
   deleteCard: deleteCard,
   editCard: editCard,
 }: CardProps) => {
@@ -42,7 +43,7 @@ export const Card = ({
       y: e.clientY - rect.top,
     });
 
-    navigator.clipboard.writeText(content);
+    navigator.clipboard.writeText(card.text);
 
     setShowCopyNotification(true);
 
@@ -53,22 +54,25 @@ export const Card = ({
 
   const trashClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
-    deleteCard(id);
+    deleteCard(card.id);
   };
 
   const editClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
-    editCard(id);
+    editCard(card.id);
   };
 
   return (
     <CardContainer onClick={copyToClipboard}>
-      <IconContainer>
-        <IconButton onClick={() => copyToClipboard}>📋</IconButton>
-        <IconButton onClick={(e) => editClick(e)}>✏️</IconButton>
-        <IconButton onClick={(e) => trashClick(e)}>❌</IconButton>
-      </IconContainer>
-      <CardText>{content}</CardText>
+      <CardHeader>
+        <CardTitle>{card.title}</CardTitle>
+        <IconContainer>
+          <IconButton onClick={() => copyToClipboard}>📋</IconButton>
+          <IconButton onClick={(e) => editClick(e)}>✏️</IconButton>
+          <IconButton onClick={(e) => trashClick(e)}>❌</IconButton>
+        </IconContainer>
+      </CardHeader>
+      <CardText>{card.text}</CardText>
       {showCopyNotification && (
         <CopyConfirm
           x={notificationPosition.x}
