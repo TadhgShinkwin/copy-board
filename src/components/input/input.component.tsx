@@ -15,6 +15,7 @@ type InputProps = {
 };
 
 const Input = ({ saveCard: saveCard, closeInput }: InputProps) => {
+  //TO-DO: fix styling for input modal. Don't include dropdown yet
   const [currentContent, setCurrentContent] = useState("");
   const [currentTitle, setCurrentTitle] = useState("");
 

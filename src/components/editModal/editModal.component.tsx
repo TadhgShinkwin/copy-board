@@ -9,6 +9,7 @@ import {
 } from "./editModal.styles";
 
 export const EditModal = ({
+  //TODO: bring styles inline with rest of app
   endEditing,
   card: card,
 }: {
