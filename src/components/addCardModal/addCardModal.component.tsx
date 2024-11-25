@@ -8,26 +8,32 @@ import {
   InputModal,
   InputTitle,
 } from "./addCardModal.styles";
-// TODO: Pull out generic modal styles and import to avoid repetition
+import { CardType } from "../../types/card";
 // TODO: Add functionality for Enter key to submit form.
 // TODO: Form Validation - Error toasts
 
 type InputProps = {
-  saveCard: (text: string, title: string) => void;
+  saveCard: (...args: string[]) => void;
   closeInput: () => void;
+  card?: CardType;
 };
 
-const AddCardModal = ({ saveCard: saveCard, closeInput }: InputProps) => {
-  //TO-DO: fix styling for input modal. Don't include dropdown yet
-  const [currentContent, setCurrentContent] = useState("");
-  const [currentTitle, setCurrentTitle] = useState("");
+const AddCardModal = ({
+  saveCard: saveCard,
+  closeInput,
+  card, //card to be sent to modal if editing
+}: InputProps) => {
+  const [currentContent, setCurrentContent] = useState(card ? card.text : "");
+  const [currentTitle, setCurrentTitle] = useState(card ? card.title : "");
 
   const inputRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (currentContent.trim() !== "") {
-      saveCard(currentContent, currentTitle);
+      if (card) {
+        saveCard(currentContent, currentTitle, card.id);
+      } else saveCard(currentContent, currentTitle);
       setCurrentContent("");
     }
   };
@@ -51,7 +57,7 @@ const AddCardModal = ({ saveCard: saveCard, closeInput }: InputProps) => {
     <InputModal ref={inputRef}>
       <CloseIcon onClick={closeInput} />
       <InputHeader>
-        <InputTitle>Add New Card</InputTitle>
+        <InputTitle>{card ? "Edit Card" : "Add New Card"}</InputTitle>
       </InputHeader>
       <InputContainer onSubmit={handleSubmit}>
         <InputField

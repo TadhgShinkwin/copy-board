@@ -65,14 +65,14 @@ export const InputField = styled.input`
 
 
 export const InputHeader = styled.div`
-  padding: 1.5rem;
+  padding: 1.2rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
 `;
 
 export const InputTitle = styled.h3`
-  font-size: 1.25rem;
+  font-size: 1.75rem;
   font-weight: 600;
   color: #1e293b;
   margin: 0;
