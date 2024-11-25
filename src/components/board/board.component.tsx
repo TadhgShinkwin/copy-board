@@ -24,6 +24,7 @@ export const Board = ({
   };
 
   const saveEdit = (text: string, title: string, id: string) => {
+    // TODO: Pull in 'cards' from LS and replace with new list containing edited card
     console.log(`Editing card ${id} with title: ${title} and content: ${text}`);
     setIsEditing(false);
   };
