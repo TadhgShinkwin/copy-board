@@ -10,7 +10,7 @@ import {
   Title,
 } from "./App.styles";
 import { Board } from "./components/board/board.component";
-import Input from "./components/input/input.component";
+import AddCardModal from "./components/addCardModal/addCardModal.component";
 import Search from "./components/search/search.component";
 import { CardType } from "./types/card";
 import { v4 as uuidv4 } from "uuid";
@@ -76,7 +76,7 @@ function App() {
         </AddButton>
       </ControlsContainer>
       <Board cards={cards} deleteCard={deleteCard} />
-      {isAdding && <Input saveCard={addCard} closeInput={closeInput} />}
+      {isAdding && <AddCardModal saveCard={addCard} closeInput={closeInput} />}
     </AppBody>
   );
 }

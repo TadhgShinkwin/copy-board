@@ -1,20 +1,23 @@
 import { useState, useRef, useEffect } from "react";
 import {
+  CloseIcon,
+  InputButtons,
   InputContainer,
   InputField,
   InputHeader,
   InputModal,
   InputTitle,
-  TitleAccent,
-} from "./input.styles";
-import { CloseIcon } from "../editModal/editModal.styles";
+} from "./addCardModal.styles";
+// TODO: Pull out generic modal styles and import to avoid repetition
+// TODO: Add functionality for Enter key to submit form.
+// TODO: Form Validation - Error toasts
 
 type InputProps = {
   saveCard: (text: string, title: string) => void;
   closeInput: () => void;
 };
 
-const Input = ({ saveCard: saveCard, closeInput }: InputProps) => {
+const AddCardModal = ({ saveCard: saveCard, closeInput }: InputProps) => {
   //TO-DO: fix styling for input modal. Don't include dropdown yet
   const [currentContent, setCurrentContent] = useState("");
   const [currentTitle, setCurrentTitle] = useState("");
@@ -48,7 +51,6 @@ const Input = ({ saveCard: saveCard, closeInput }: InputProps) => {
     <InputModal ref={inputRef}>
       <CloseIcon onClick={closeInput} />
       <InputHeader>
-        <TitleAccent />
         <InputTitle>Add New Card</InputTitle>
       </InputHeader>
       <InputContainer onSubmit={handleSubmit}>
@@ -62,11 +64,13 @@ const Input = ({ saveCard: saveCard, closeInput }: InputProps) => {
           value={currentContent}
           onChange={(e) => setCurrentContent(e.target.value)}
         />
-        <button onClick={() => closeInput()}>Cancel</button>
-        <button type="submit">Submit</button>
+        <InputButtons>
+          <button onClick={() => closeInput()}>Cancel</button>
+          <button type="submit">Submit</button>
+        </InputButtons>
       </InputContainer>
     </InputModal>
   );
 };
 
-export default Input;
+export default AddCardModal;
