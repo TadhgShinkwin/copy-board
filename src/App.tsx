@@ -1,16 +1,23 @@
 import { useState, useEffect } from "react";
 import "./App.css";
+import {
+  AddButton,
+  AppBody,
+  ControlsContainer,
+  ControlsSpacer,
+  HeadingsContainer,
+  Subtitle,
+  Title,
+} from "./App.styles";
 import { Board } from "./components/board/board.component";
-import { Input } from "./components/input/input.component";
+import AddCardModal from "./components/addCardModal/addCardModal.component";
+import Search from "./components/search/search.component";
+import { CardType } from "./types/card";
 import { v4 as uuidv4 } from "uuid";
 
-type Card = {
-  id: string;
-  text: string;
-};
-
 function App() {
-  const [cards, setCards] = useState<Card[]>([]);
+  const [cards, setCards] = useState<CardType[]>([]);
+  const [isAdding, setIsAdding] = useState<boolean>(false);
 
   const updateCards = () => {
     localStorage.setItem("cards", JSON.stringify(cards));
@@ -23,12 +30,14 @@ function App() {
     }
   };
 
-  const addCard = (text: string) => {
+  const addCard = (text: string, title: string) => {
     const newCard = {
       id: uuidv4(),
+      title: title,
       text: text,
     };
     setCards([...cards, newCard]);
+    setIsAdding(false);
   };
 
   const deleteCard = (id: string) => {
@@ -49,12 +58,26 @@ function App() {
     }
   }, [cards]);
 
+  const closeInput = () => {
+    setIsAdding(false);
+  };
+
   return (
-    <>
-      <h1>Copy Board</h1>
-      <Input saveCard={addCard} />
+    <AppBody>
+      <HeadingsContainer>
+        <Title>CopyBoard</Title>
+        <Subtitle>Quick access to your frequently used text</Subtitle>
+      </HeadingsContainer>
+      <ControlsContainer>
+        <Search />
+        <ControlsSpacer />
+        <AddButton onClick={() => setIsAdding(true)}>
+          &#x002B; Add New
+        </AddButton>
+      </ControlsContainer>
       <Board cards={cards} deleteCard={deleteCard} />
-    </>
+      {isAdding && <AddCardModal saveCard={addCard} closeInput={closeInput} />}
+    </AppBody>
   );
 }
 

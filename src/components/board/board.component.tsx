@@ -1,7 +1,7 @@
-import { useState, useRef } from "react";
-import { BoardContainer } from "./board.styles";
+import { useState } from "react";
+import { BoardContainer, Placeholder } from "./board.styles";
 import { Card } from "../card/card.component";
-import { EditModal } from "../editModal/editModal.component";
+import AddCardModal from "../addCardModal/addCardModal.component";
 import { CardType } from "../../types/card";
 
 export const Board = ({
@@ -23,23 +23,31 @@ export const Board = ({
     setIsEditing(false);
   };
 
+  const saveEdit = (text: string, title: string, id: string) => {
+    console.log(`Editing card ${id} with title: ${title} and content: ${text}`);
+    setIsEditing(false);
+  };
+
   return (
     <BoardContainer>
       {cards.length > 0 ? (
         cards.map((card) => (
           <Card
             key={card.id}
-            content={card.text}
-            id={card.id}
+            card={card}
             deleteCard={deleteCard}
             editCard={() => editCard(card)}
           />
         ))
       ) : (
-        <h1>Try adding some cards</h1>
+        <Placeholder>Try adding some cards</Placeholder>
       )}
       {isEditing && editingCard && (
-        <EditModal endEditing={endEditing} card={editingCard} />
+        <AddCardModal
+          saveCard={saveEdit}
+          closeInput={endEditing}
+          card={editingCard}
+        />
       )}
     </BoardContainer>
   );
