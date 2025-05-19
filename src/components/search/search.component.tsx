@@ -1,5 +1,6 @@
 import { SearchContainer, SearchIcon, SearchInput } from "./search.styles";
 
+// TODO: Add search functionality
 const Search = () => {
   return (
     <SearchContainer>

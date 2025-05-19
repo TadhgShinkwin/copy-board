@@ -9,7 +9,6 @@ import {
   InputTitle,
 } from "./addCardModal.styles";
 import { CardType } from "../../types/card";
-// TODO: Add functionality for Enter key to submit form.
 // TODO: Form Validation - Error toasts
 
 type InputProps = {
@@ -30,6 +29,10 @@ const AddCardModal = ({
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    submitContent();
+  };
+
+  const submitContent = () => {
     if (currentContent.trim() !== "") {
       if (card) {
         saveCard(currentContent, currentTitle, card.id);
@@ -37,6 +40,12 @@ const AddCardModal = ({
       setCurrentContent("");
     }
   };
+
+  document.addEventListener("keypress", function (e) {
+    if (e.code === "Enter") {
+      submitContent();
+    }
+  });
 
   useEffect(() => {
     function handleOutsideClick(event: MouseEvent) {
