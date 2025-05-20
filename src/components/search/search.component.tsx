@@ -1,7 +1,6 @@
 import { SearchContainer, SearchIcon, SearchInput } from "./search.styles";
 import { useState, useEffect } from "react";
 
-// TODO: Add search functionality
 const Search = ({ updateSearch }: { updateSearch: (term: string) => void }) => {
   const [searchContent, setSearchContent] = useState<string>("");
 
