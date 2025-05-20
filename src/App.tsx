@@ -18,6 +18,7 @@ import { v4 as uuidv4 } from "uuid";
 function App() {
   const [cards, setCards] = useState<CardType[]>([]);
   const [isAdding, setIsAdding] = useState<boolean>(false);
+  const [searchTerm, setSearchTerm] = useState<string>("");
 
   const updateCards = () => {
     localStorage.setItem("cards", JSON.stringify(cards));
@@ -28,6 +29,20 @@ function App() {
     if (savedCards) {
       setCards(JSON.parse(savedCards));
     }
+  };
+
+  const updateSearch = (term: string) => {
+    setSearchTerm(term);
+  };
+
+  const renderCards = () => {
+    if (searchTerm) {
+      return cards.filter(
+        (card) =>
+          card.text.includes(searchTerm) || card.title.includes(searchTerm)
+      );
+    }
+    return cards;
   };
 
   const addCard = (text: string, title: string) => {
@@ -69,13 +84,13 @@ function App() {
         <Subtitle>Quick access to your frequently used text</Subtitle>
       </HeadingsContainer>
       <ControlsContainer>
-        <Search />
+        <Search updateSearch={updateSearch} />
         <ControlsSpacer />
         <AddButton onClick={() => setIsAdding(true)}>
           &#x002B; Add New
         </AddButton>
       </ControlsContainer>
-      <Board cards={cards} deleteCard={deleteCard} />
+      <Board cards={renderCards()} deleteCard={deleteCard} />
       {isAdding && <AddCardModal saveCard={addCard} closeInput={closeInput} />}
     </AppBody>
   );
