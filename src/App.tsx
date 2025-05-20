@@ -32,14 +32,15 @@ function App() {
   };
 
   const updateSearch = (term: string) => {
-    setSearchTerm(term);
+    setSearchTerm(term.toLowerCase());
   };
 
   const renderCards = () => {
     if (searchTerm) {
       return cards.filter(
         (card) =>
-          card.text.includes(searchTerm) || card.title.includes(searchTerm)
+          card.text.toLowerCase().includes(searchTerm) ||
+          card.title.toLocaleLowerCase().includes(searchTerm)
       );
     }
     return cards;
