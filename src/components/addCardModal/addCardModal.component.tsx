@@ -10,6 +10,7 @@ import {
 } from "./addCardModal.styles";
 import { CardType } from "../../types/card";
 // TODO: Form Validation - Error toasts
+// TODO: Add Tag/Category selection section with default selection
 
 type InputProps = {
   saveCard: (...args: string[]) => void;

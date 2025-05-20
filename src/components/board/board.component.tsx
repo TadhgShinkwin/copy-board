@@ -4,6 +4,7 @@ import { Card } from "../card/card.component";
 import AddCardModal from "../addCardModal/addCardModal.component";
 import { CardType } from "../../types/card";
 
+// TODO: Add tags/categories section with used tags enabled and unused disabled
 export const Board = ({
   cards,
   deleteCard: deleteCard,
