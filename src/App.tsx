@@ -15,8 +15,6 @@ import Search from "./components/search/search.component";
 import { CardType } from "./types/card";
 import { v4 as uuidv4 } from "uuid";
 
-// Test comment to check if credentials have been correctly cached - IGNORE
-
 function App() {
   const [cards, setCards] = useState<CardType[]>([]);
   const [isAdding, setIsAdding] = useState<boolean>(false);
