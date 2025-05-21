@@ -1,4 +1,4 @@
-export const CARD_CATEGORIES = {
+export const CARD_TAGS = {
     work: {
         title: 'Work',
         value: 'work'

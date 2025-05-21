@@ -7,8 +7,11 @@ import {
   InputHeader,
   InputModal,
   InputTitle,
+  TagContainer,
 } from "./addCardModal.styles";
 import { CardType } from "../../types/card";
+import { CARD_TAGS } from "../../constants/tags";
+import Tag from "../tag/tag.component";
 // TODO: Form Validation - Error toasts
 // TODO: Add Tag/Category selection section with default selection
 
@@ -69,6 +72,11 @@ const AddCardModal = ({
       <InputHeader>
         <InputTitle>{card ? "Edit Card" : "Add New Card"}</InputTitle>
       </InputHeader>
+      <TagContainer>
+        {Object.entries(CARD_TAGS).map(([key, { title, value }]) => (
+          <Tag key={key} title={title} value={value} icon="X" />
+        ))}
+      </TagContainer>
       <InputContainer onSubmit={handleSubmit}>
         <InputField
           placeholder="add title..."

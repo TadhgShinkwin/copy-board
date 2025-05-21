@@ -4,17 +4,18 @@ export type CardType = {
   text: string;
 };
 
-type Category = {
+export type CardTag = {
   title: string;
   value: string;
+  icon: string;
 }
 
 export type CardTypeB = {
   id: string;
   title: string;
-  category: Category; 
+  tag: CardTag; 
   text: string;
   lastModified: Date;
 }
 
-// For the full cardType - we're gonna use Title, Category, Id, text. -> If we have a need for last edited date (e.g. sorting)
+// For the full cardType - we're gonna use Title, Tag, Id, text. -> If we have a need for last edited date (e.g. sorting)

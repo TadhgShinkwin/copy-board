@@ -13,7 +13,7 @@ export const InputModal = styled.div`
   font-family: system-ui, -apple-system, sans-serif;
   background-color: #f8fafc;
   display: grid;
-  gap: 2rem;
+  gap: 0.8rem;
   margin: 0 auto;
 `;
 
@@ -83,4 +83,15 @@ export const CloseIcon = styled(FaTimes)`
   top: 15px;
   right: 15px;
   cursor: pointer;
+`;
+
+export const TagContainer = styled.div`
+  padding: 10px;
+  border:1px solid #dfe5eb;
+  border-radius: 8px;
+  margin: 1rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
 `;
