@@ -7,7 +7,6 @@ import Tag from "../tag/tag.component";
 import { CardType } from "../../types/card";
 import { CARD_TAGS } from "../../constants/tags";
 
-// TODO: Add tags/categories section with used tags enabled and unused disabled
 export const Board = ({
   cards,
   deleteCard: deleteCard,

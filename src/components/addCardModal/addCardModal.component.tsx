@@ -13,7 +13,6 @@ import { CardType } from "../../types/card";
 import { CARD_TAGS } from "../../constants/tags";
 import Tag from "../tag/tag.component";
 // TODO: Form Validation - Error toasts
-// TODO: Add Tag/Category selection section with default selection
 
 type InputProps = {
   saveCard: (...args: string[]) => void;
