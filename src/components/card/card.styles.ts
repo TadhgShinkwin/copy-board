@@ -29,6 +29,7 @@ export const CardContainer = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   background: white;
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
   border-radius: 0.75rem;
@@ -108,4 +109,12 @@ export const CopyConfirm = styled.div<NotificationProps>`
   transform: translate(-50%, -100%);
   margin-top: -8px;
   animation: ${fadeOut} ${props => props.duration}ms ease-in-out;
+`;
+
+export const TagContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1.5em;
+  color: #14709b;
+  font-size: 1.2em;
 `;

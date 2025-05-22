@@ -7,7 +7,9 @@ import {
   CopyConfirm,
   IconButton,
   IconContainer,
+  TagContainer,
 } from "./card.styles";
+import { selectIcon } from "../tag/tag.component";
 import { CardType } from "../../types/card";
 //import { FaTrash, FaEdit } from "react-icons/fa"; undecided about currrent buttons or these icons
 
@@ -15,6 +17,7 @@ type CardProps = {
   card: CardType;
   deleteCard: (id: string) => void;
   editCard: (id: string) => void;
+  tag: string;
 };
 
 interface Position {
@@ -26,6 +29,7 @@ export const Card = ({
   card,
   deleteCard: deleteCard,
   editCard: editCard,
+  tag,
 }: CardProps) => {
   // TODO: Animation for copy confirmation and delete.
   const notificationDuration = 1000;
@@ -73,6 +77,7 @@ export const Card = ({
         </IconContainer>
       </CardHeader>
       <CardText>{card.text}</CardText>
+      <TagContainer>{selectIcon(tag)}</TagContainer>
       {showCopyNotification && (
         <CopyConfirm
           x={notificationPosition.x}

@@ -28,6 +28,7 @@ const AddCardModal = ({
 }: InputProps) => {
   const [currentContent, setCurrentContent] = useState(card ? card.text : "");
   const [currentTitle, setCurrentTitle] = useState(card ? card.title : "");
+  const [currentTag, setCurrentTag] = useState(card ? card.tag : "none");
 
   const inputRef = useRef<HTMLDivElement>(null);
 
@@ -36,11 +37,15 @@ const AddCardModal = ({
     submitContent();
   };
 
+  const handleClick = (tag: string) => {
+    setCurrentTag(tag);
+  };
+
   const submitContent = () => {
     if (currentContent.trim() !== "") {
       if (card) {
-        saveCard(currentContent, currentTitle, card.id);
-      } else saveCard(currentContent, currentTitle);
+        saveCard(currentContent, currentTitle, currentTag, card.id);
+      } else saveCard(currentContent, currentTitle, currentTag);
       setCurrentContent("");
     }
   };
@@ -74,7 +79,13 @@ const AddCardModal = ({
       </InputHeader>
       <TagContainer>
         {Object.entries(CARD_TAGS).map(([key, { title, value }]) => (
-          <Tag key={key} title={title} value={value} icon="X" />
+          <Tag
+            key={key}
+            title={title}
+            value={value}
+            handleClick={handleClick}
+            isSelected={value === currentTag}
+          />
         ))}
       </TagContainer>
       <InputContainer onSubmit={handleSubmit}>

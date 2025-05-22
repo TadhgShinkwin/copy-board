@@ -87,7 +87,6 @@ export const CloseIcon = styled(FaTimes)`
 
 export const TagContainer = styled.div`
   padding: 10px;
-  border:1px solid #dfe5eb;
   border-radius: 8px;
   margin: 1rem;
   display: flex;

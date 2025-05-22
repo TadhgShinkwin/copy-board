@@ -15,6 +15,7 @@ import Search from "./components/search/search.component";
 import { CardType } from "./types/card";
 import { v4 as uuidv4 } from "uuid";
 
+// TODO: Re-organise logic location - currently messy and not everything is in its right place
 function App() {
   const [cards, setCards] = useState<CardType[]>([]);
   const [isAdding, setIsAdding] = useState<boolean>(false);
@@ -46,11 +47,12 @@ function App() {
     return cards;
   };
 
-  const addCard = (text: string, title: string) => {
+  const addCard = (text: string, title: string, tag: string) => {
     const newCard = {
       id: uuidv4(),
       title: title,
       text: text,
+      tag: tag,
     };
     setCards([...cards, newCard]);
     setIsAdding(false);
