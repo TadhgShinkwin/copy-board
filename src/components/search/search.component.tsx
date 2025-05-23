@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 const Search = ({ updateSearch }: { updateSearch: (term: string) => void }) => {
   const [searchContent, setSearchContent] = useState<string>("");
-
+  // TODO: debounce search
   useEffect(() => {
     updateSearch(searchContent);
   }, [searchContent]);
