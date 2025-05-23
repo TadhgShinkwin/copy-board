@@ -9,7 +9,7 @@ import {
   IconContainer,
   TagContainer,
 } from "./card.styles";
-import { selectIcon } from "../tag/tag.component";
+import { selectIcon } from "../../utils/selectIcon";
 import { CardType } from "../../types/card";
 //import { FaTrash, FaEdit } from "react-icons/fa"; undecided about currrent buttons or these icons
 
