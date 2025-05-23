@@ -1,12 +1,14 @@
 import { SearchContainer, SearchIcon, SearchInput } from "./search.styles";
 import { useState, useEffect } from "react";
+import { useDebouncedValue } from "../../hooks/useDebouncedValue";
 
 const Search = ({ updateSearch }: { updateSearch: (term: string) => void }) => {
   const [searchContent, setSearchContent] = useState<string>("");
-  // TODO: debounce search
+  const debouncedSearchTerm = useDebouncedValue(searchContent, 200);
+
   useEffect(() => {
-    updateSearch(searchContent);
-  }, [searchContent]);
+    updateSearch(debouncedSearchTerm);
+  }, [debouncedSearchTerm]);
 
   return (
     <SearchContainer>
