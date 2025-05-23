@@ -21,8 +21,11 @@ function App() {
   const [isAdding, setIsAdding] = useState<boolean>(false);
   const [searchTerm, setSearchTerm] = useState<string>("");
 
-  const updateCards = () => {
-    localStorage.setItem("cards", JSON.stringify(cards));
+  const updateCards = (cardSet: CardType[] = cards) => {
+    localStorage.setItem("cards", JSON.stringify(cardSet));
+    if (cards !== cardSet) {
+      setCards(cardSet);
+    }
   };
 
   const retrieveCards = () => {
@@ -93,7 +96,11 @@ function App() {
           &#x002B; Add New
         </AddButton>
       </ControlsContainer>
-      <Board cards={renderCards()} deleteCard={deleteCard} />
+      <Board
+        cards={renderCards()}
+        deleteCard={deleteCard}
+        updateCards={updateCards}
+      />
       {isAdding && <AddCardModal saveCard={addCard} closeInput={closeInput} />}
     </AppBody>
   );

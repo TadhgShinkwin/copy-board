@@ -10,9 +10,11 @@ import { CARD_TAGS } from "../../constants/tags";
 export const Board = ({
   cards,
   deleteCard: deleteCard,
+  updateCards,
 }: {
   cards: CardType[];
   deleteCard: (id: string) => void;
+  updateCards: (cardSet?: CardType[]) => void;
 }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editingCard, setEditingCard] = useState<CardType | null>(null);
@@ -39,9 +41,17 @@ export const Board = ({
   };
 
   const saveEdit = (text: string, title: string, tag: string, id: string) => {
-    console.log(
-      `Editing card ${id} with title: ${title} and content: ${text} and tag: ${tag}`
+    const updatedFields = {
+      text: text,
+      title: title,
+      tag: tag,
+    };
+    const editedCards = cards.map((card) =>
+      card.id === id ? { ...card, ...updatedFields } : card
     );
+
+    updateCards(editedCards);
+
     setIsEditing(false);
   };
 
