@@ -37,7 +37,7 @@ const AddCardModal = ({
   };
 
   const handleClick = (tag: string) => {
-    setCurrentTag(tag);
+    setCurrentTag(tag === currentTag ? "none" : tag);
   };
 
   const submitContent = () => {
@@ -94,9 +94,17 @@ const AddCardModal = ({
           onChange={(e) => setCurrentTitle(e.target.value)}
         />
         <InputField
+          as="textarea"
           placeholder="add content..."
           value={currentContent}
           onChange={(e) => setCurrentContent(e.target.value)}
+          style={{
+            height: "100px",
+            paddingTop: "10px",
+            resize: "none",
+            lineHeight: "1.4",
+            verticalAlign: "top", // optional
+          }}
         />
         <InputButtons>
           <button onClick={() => closeInput()}>Cancel</button>
