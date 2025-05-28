@@ -25,9 +25,16 @@ const AddCardModal = ({
   closeInput,
   card, //card to be sent to modal if editing
 }: InputProps) => {
-  const [currentContent, setCurrentContent] = useState(card ? card.text : "");
-  const [currentTitle, setCurrentTitle] = useState(card ? card.title : "");
-  const [currentTag, setCurrentTag] = useState(card ? card.tag : "none");
+  const [currentContent, setCurrentContent] = useState<string>(
+    card ? card.text : ""
+  );
+  const [currentTitle, setCurrentTitle] = useState<string>(
+    card ? card.title : ""
+  );
+  const [currentTag, setCurrentTag] = useState<string>(
+    card ? card.tag : "none"
+  );
+  // const [isAddingCustomTag, setIsAddingCustomTag] = useState<boolean>(false);
 
   const inputRef = useRef<HTMLDivElement>(null);
 
@@ -38,6 +45,10 @@ const AddCardModal = ({
 
   const handleClick = (tag: string) => {
     setCurrentTag(tag === currentTag ? "none" : tag);
+  };
+
+  const addCustom = (tag: string) => {
+    console.log(`setIsAddingCustomTag(true) -> ${tag}`);
   };
 
   const submitContent = () => {
@@ -86,6 +97,12 @@ const AddCardModal = ({
             isSelected={value === currentTag}
           />
         ))}
+        <Tag
+          title="Make Your Own"
+          value="custom"
+          handleClick={addCustom}
+          isSelected={false}
+        />
       </TagContainer>
       <InputContainer onSubmit={handleSubmit}>
         <InputField

@@ -41,7 +41,10 @@ export const CardContainer = styled.div`
   min-height: 140px;
   &:hover {
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    border-color: #0ea5e9;
+    border: 1px solid transparent;
+    border-image: radial-gradient(circle at top left, #8A2BE2 0%, #FF1493 50%, #00CED1 100%);
+    border-image-slice: 1;
+    border-radius: 10px;
     ${IconContainer} {
       opacity: 1;
     }

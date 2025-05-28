@@ -1,11 +1,12 @@
 import {
   FaBriefcase,
-  FaUser,
-  FaShareAlt,
   FaCode,
+  FaPlus,
   FaRobot,
-  FaThLarge,
+  FaShareAlt,
   FaTag,
+  FaThLarge,
+  FaUser,
 } from "react-icons/fa";
 
 export const selectIcon = (value: string): JSX.Element | undefined => {
@@ -22,6 +23,8 @@ export const selectIcon = (value: string): JSX.Element | undefined => {
       return <FaRobot />;
     case "misc":
       return <FaThLarge />;
+    case "custom":
+      return <FaPlus />;
     case "none":
       return;
     default:

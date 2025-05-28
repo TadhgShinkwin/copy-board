@@ -12,10 +12,13 @@ export const HeadingsContainer = styled.div`
 `;
 
 export const Title = styled.h1`
-    color: #1e293b;
     font-size: 2.5rem;
     font-weight: bold;
     margin: 0;
+    background-image: linear-gradient(45deg,  #2BA2E2 0%, #FF1493 50%, #00CED1 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 `;
 
 export const Subtitle = styled.p`
