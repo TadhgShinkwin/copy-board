@@ -11,7 +11,7 @@ interface TagState {
 }
 
 
-export const useTagStore = create<TagState>()((set) => ({
+const useTagStore = create<TagState>()((set) => ({
     tags: [],
     setTags: (tags) => set({tags})
 }))
