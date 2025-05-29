@@ -8,11 +8,11 @@ import {
   InputModal,
   InputTitle,
   TagContainer,
+  WarningText,
 } from "./addCardModal.styles";
 import { CardType } from "../../types/card";
 import { CARD_TAGS } from "../../constants/tags";
 import Tag from "../tag/tag.component";
-// TODO: Form Validation - Error toasts
 
 type InputProps = {
   saveCard: (...args: string[]) => void;
@@ -36,6 +36,8 @@ const AddCardModal = ({
   );
   // const [isAddingCustomTag, setIsAddingCustomTag] = useState<boolean>(false);
 
+  const [isinvalidContent, setIsInvalidContent] = useState<boolean>(false);
+
   const inputRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -52,12 +54,14 @@ const AddCardModal = ({
   };
 
   const submitContent = () => {
-    if (currentContent.trim() !== "") {
-      if (card) {
-        saveCard(currentContent, currentTitle, currentTag, card.id);
-      } else saveCard(currentContent, currentTitle, currentTag);
-      setCurrentContent("");
+    if (currentContent.trim() === "") {
+      setIsInvalidContent(true);
+      return;
     }
+    if (card) {
+      saveCard(currentContent, currentTitle, currentTag, card.id);
+    } else saveCard(currentContent, currentTitle, currentTag);
+    setCurrentContent("");
   };
 
   document.addEventListener("keypress", function (e) {
@@ -110,17 +114,26 @@ const AddCardModal = ({
           value={currentTitle}
           onChange={(e) => setCurrentTitle(e.target.value)}
         />
+        {isinvalidContent && (
+          <WarningText>You cannot submit an empty card...</WarningText>
+        )}
         <InputField
+          $isInvalid={isinvalidContent}
           as="textarea"
           placeholder="add content..."
           value={currentContent}
-          onChange={(e) => setCurrentContent(e.target.value)}
+          onChange={(e) => {
+            if (isinvalidContent) {
+              setIsInvalidContent(false);
+            }
+            setCurrentContent(e.target.value);
+          }}
           style={{
             height: "100px",
             paddingTop: "10px",
             resize: "none",
             lineHeight: "1.4",
-            verticalAlign: "top", // optional
+            verticalAlign: "top",
           }}
         />
         <InputButtons>

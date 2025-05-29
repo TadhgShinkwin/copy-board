@@ -48,9 +48,13 @@ export const InputButtons = styled.div`
   margin-top: 1rem;
 `;
 
-export const InputField = styled.input`
+interface InputFieldProps {
+  $isInvalid?: boolean;
+}
+
+export const InputField = styled.input<InputFieldProps>`
   padding: 12px;
-  border: 1px solid #e0e0e0;
+  border: 1px solid ${({ $isInvalid }) => ($isInvalid ? "#f8908c" : "#E0E0E0")};
   border-radius: 8px;
   resize: vertical;
   font-family: inherit;
@@ -93,4 +97,13 @@ export const TagContainer = styled.div`
   justify-content: center;
   flex-wrap: wrap;
   gap: 8px;
+`;
+
+export const WarningText = styled.p`
+  color:#f36f6b;
+  margin: 0;
+  margin-top: 8px;
+  padding: 0 15px;
+  font-size: 0.9em;
+  font-weight: 500;
 `;
