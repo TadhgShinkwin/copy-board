@@ -13,16 +13,17 @@ import {
 import { CardType } from "../../types/card";
 import { CARD_TAGS } from "../../constants/tags";
 import Tag from "../tag/tag.component";
+import {
+  useAddCard,
+  useToggleIsAdding,
+  useUpdateCard,
+} from "../../stores/cardStore";
 
 type InputProps = {
-  saveCard: (...args: string[]) => void;
-  closeInput: () => void;
   card?: CardType;
 };
 
 const AddCardModal = ({
-  saveCard: saveCard,
-  closeInput,
   card, //card to be sent to modal if editing
 }: InputProps) => {
   const [currentContent, setCurrentContent] = useState<string>(
@@ -34,13 +35,16 @@ const AddCardModal = ({
   const [currentTag, setCurrentTag] = useState<string>(
     card ? card.tag : "none"
   );
-  // const [isAddingCustomTag, setIsAddingCustomTag] = useState<boolean>(false);
-
   const [isinvalidContent, setIsInvalidContent] = useState<boolean>(false);
+
+  const toggleIsAdding = useToggleIsAdding();
+  const updateCard = useUpdateCard();
+  const addNewCard = useAddCard();
 
   const inputRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    console.log("handleSubmit called");
     e.preventDefault();
     submitContent();
   };
@@ -59,16 +63,23 @@ const AddCardModal = ({
       return;
     }
     if (card) {
-      saveCard(currentContent, currentTitle, currentTag, card.id);
-    } else saveCard(currentContent, currentTitle, currentTag);
-    setCurrentContent("");
-  };
-
-  document.addEventListener("keypress", function (e) {
-    if (e.code === "Enter") {
-      submitContent();
+      const updatedCard = {
+        text: currentContent,
+        title: currentTitle,
+        tag: currentTag,
+      };
+      updateCard(card.id, updatedCard);
+    } else {
+      const newCard = {
+        text: currentContent,
+        title: currentTitle,
+        tag: currentTag,
+      };
+      addNewCard(newCard);
     }
-  });
+    setCurrentContent("");
+    toggleIsAdding();
+  };
 
   useEffect(() => {
     function handleOutsideClick(event: MouseEvent) {
@@ -76,18 +87,18 @@ const AddCardModal = ({
         inputRef.current &&
         !inputRef.current.contains(event.target as Node)
       ) {
-        closeInput();
+        toggleIsAdding();
       }
     }
     document.addEventListener("mousedown", handleOutsideClick);
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [inputRef, closeInput]);
+  }, [inputRef, toggleIsAdding]);
 
   return (
     <InputModal ref={inputRef}>
-      <CloseIcon onClick={closeInput} />
+      <CloseIcon onClick={() => toggleIsAdding()} />
       <InputHeader>
         <InputTitle>{card ? "Edit Card" : "Add New Card"}</InputTitle>
       </InputHeader>
@@ -108,7 +119,19 @@ const AddCardModal = ({
           isSelected={false}
         />
       </TagContainer>
-      <InputContainer onSubmit={handleSubmit}>
+      <InputContainer
+        onSubmit={handleSubmit}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            console.log("Enter key pressed, submitting form");
+            const fakeSubmitEvent = {
+              preventDefault: () => {},
+            } as unknown as React.FormEvent<HTMLFormElement>;
+            handleSubmit(fakeSubmitEvent);
+          }
+        }}
+      >
         <InputField
           placeholder="add title..."
           value={currentTitle}
@@ -137,7 +160,7 @@ const AddCardModal = ({
           }}
         />
         <InputButtons>
-          <button onClick={() => closeInput()}>Cancel</button>
+          <button onClick={() => toggleIsAdding()}>Cancel</button>
           <button type="submit">Submit</button>
         </InputButtons>
       </InputContainer>
