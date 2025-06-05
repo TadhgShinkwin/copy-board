@@ -15,7 +15,6 @@ import Search from "./components/search/search.component";
 import { useHydrateCards } from "./hooks/useHydrateCards";
 import { useCards, useIsAdding, useToggleIsAdding } from "./stores/cardStore";
 
-// TODO: Re-organise logic location - currently messy and not everything is in its right place
 function App() {
   useHydrateCards();
   const [searchTerm, setSearchTerm] = useState<string>("");

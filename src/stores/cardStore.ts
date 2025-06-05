@@ -23,7 +23,7 @@ interface CardState {
     isAdding: boolean;
     toggleIsAdding: () => void;
 }
-// TODO: Fix Delete and Add cards to reflect changes in localStorage
+
 const useCardStore = create<CardState>((set) => ({
     cards: [],
     setCards: (cards) => {
