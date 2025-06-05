@@ -7,15 +7,7 @@ import Tag from "../tag/tag.component";
 import { CardType } from "../../types/card";
 import { CARD_TAGS } from "../../constants/tags";
 
-export const Board = ({
-  cards,
-  deleteCard: deleteCard,
-  updateCards,
-}: {
-  cards: CardType[];
-  deleteCard: (id: string) => void;
-  updateCards: (cardSet?: CardType[]) => void;
-}) => {
+export const Board = ({ cards }: { cards: CardType[] }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editingCard, setEditingCard] = useState<CardType | null>(null);
   const [tagFilter, setTagFilter] = useState<string>("");
@@ -26,10 +18,6 @@ export const Board = ({
     setEditingCard(card);
   };
 
-  const endEditing = () => {
-    setIsEditing(false);
-  };
-
   useEffect(() => {
     if (tagFilter) {
       setRenderedCards(cards.filter((card) => card.tag === tagFilter));
@@ -38,21 +26,6 @@ export const Board = ({
 
   const handleClick = (tag: string) => {
     setTagFilter(tag === tagFilter ? "" : tag);
-  };
-
-  const saveEdit = (text: string, title: string, tag: string, id: string) => {
-    const updatedFields = {
-      text: text,
-      title: title,
-      tag: tag,
-    };
-    const editedCards = cards.map((card) =>
-      card.id === id ? { ...card, ...updatedFields } : card
-    );
-
-    updateCards(editedCards);
-
-    setIsEditing(false);
   };
 
   return (
@@ -74,7 +47,6 @@ export const Board = ({
             <Card
               key={card.id}
               card={card}
-              deleteCard={deleteCard}
               editCard={() => editCard(card)}
               tag={card.tag}
             />
@@ -82,13 +54,7 @@ export const Board = ({
         ) : (
           <Placeholder>Try adding some cards</Placeholder>
         )}
-        {isEditing && editingCard && (
-          <AddCardModal
-            saveCard={saveEdit}
-            closeInput={endEditing}
-            card={editingCard}
-          />
-        )}
+        {isEditing && editingCard && <AddCardModal card={editingCard} />}
       </BoardContainer>
     </>
   );

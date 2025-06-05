@@ -11,11 +11,11 @@ import {
 } from "./card.styles";
 import { selectIcon } from "../../utils/selectIcon";
 import { CardType } from "../../types/card";
+import { useDeleteCard } from "../../stores/cardStore";
 //import { FaTrash, FaEdit } from "react-icons/fa"; undecided about currrent buttons or these icons
 
 type CardProps = {
   card: CardType;
-  deleteCard: (id: string) => void;
   editCard: (id: string) => void;
   tag: string;
 };
@@ -25,12 +25,7 @@ interface Position {
   y: number;
 }
 
-export const Card = ({
-  card,
-  deleteCard: deleteCard,
-  editCard: editCard,
-  tag,
-}: CardProps) => {
+export const Card = ({ card, editCard: editCard, tag }: CardProps) => {
   // TODO: Animation for copy confirmation and delete.
   const notificationDuration = 1000;
   const [notificationPosition, setNotificationPosition] = useState<Position>({
@@ -39,6 +34,8 @@ export const Card = ({
   });
   const [showCopyNotification, setShowCopyNotification] =
     useState<boolean>(false);
+
+  const deleteThis = useDeleteCard();
 
   const copyToClipboard = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -58,7 +55,7 @@ export const Card = ({
 
   const trashClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.stopPropagation();
-    deleteCard(card.id);
+    deleteThis(card.id);
   };
 
   const editClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
