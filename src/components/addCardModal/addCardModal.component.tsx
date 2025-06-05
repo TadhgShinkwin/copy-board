@@ -53,10 +53,6 @@ const AddCardModal = ({
     setCurrentTag(tag === currentTag ? "none" : tag);
   };
 
-  const addCustom = (tag: string) => {
-    console.log(`setIsAddingCustomTag(true) -> ${tag}`);
-  };
-
   const submitContent = () => {
     if (currentContent.trim() === "") {
       setIsInvalidContent(true);
@@ -112,12 +108,6 @@ const AddCardModal = ({
             isSelected={value === currentTag}
           />
         ))}
-        <Tag
-          title="Make Your Own"
-          value="custom"
-          handleClick={addCustom}
-          isSelected={false}
-        />
       </TagContainer>
       <InputContainer
         onSubmit={handleSubmit}
