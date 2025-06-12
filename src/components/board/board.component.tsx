@@ -6,15 +6,17 @@ import AddCardModal from "../addCardModal/addCardModal.component";
 import Tag from "../tag/tag.component";
 import { CardType } from "../../types/card";
 import { CARD_TAGS } from "../../constants/tags";
+import { useIsEditing, useToggleIsEditing } from "../../stores/cardStore";
 
 export const Board = ({ cards }: { cards: CardType[] }) => {
-  const [isEditing, setIsEditing] = useState(false);
   const [editingCard, setEditingCard] = useState<CardType | null>(null);
   const [tagFilter, setTagFilter] = useState<string>("");
   const [renderedCards, setRenderedCards] = useState<CardType[]>(cards);
 
+  const toggleIsEditing = useToggleIsEditing();
+
   const editCard = (card: CardType) => {
-    setIsEditing(true);
+    toggleIsEditing();
     setEditingCard(card);
   };
 
@@ -54,7 +56,7 @@ export const Board = ({ cards }: { cards: CardType[] }) => {
         ) : (
           <Placeholder>Try adding some cards</Placeholder>
         )}
-        {isEditing && editingCard && <AddCardModal card={editingCard} />}
+        {useIsEditing() && editingCard && <AddCardModal card={editingCard} />}
       </BoardContainer>
     </>
   );

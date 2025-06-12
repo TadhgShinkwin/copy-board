@@ -21,13 +21,14 @@ interface CardState {
     deleteCard: (id: string) => void;
     updateCard: (id: string, updatedCard: Partial<Card>) => void;
     isAdding: boolean;
+    isEditing: boolean;
     toggleIsAdding: () => void;
+    toggleIsEditing: () => void;
 }
 
 const useCardStore = create<CardState>((set) => ({
     cards: [],
     setCards: (cards) => {
-        console.log("Setting cards:", cards);
         localStorage.setItem("cards", JSON.stringify(cards));
         set({ cards })
     },
@@ -57,7 +58,9 @@ const useCardStore = create<CardState>((set) => ({
         cards: updatedCards
     }}),
     isAdding: false,
+    isEditing: false,
     toggleIsAdding: () => set((state) => ({ isAdding: !state.isAdding })),
+    toggleIsEditing: () => set((state) => ({ isEditing: !state.isEditing })),
 
 }));
 export const useCards = () => useCardStore((state) => state.cards);
@@ -66,4 +69,6 @@ export const useAddCard = () => useCardStore((state) => state.addCard);
 export const useDeleteCard = () => useCardStore((state) => state.deleteCard);
 export const useUpdateCard = () => useCardStore((state) => state.updateCard);
 export const useIsAdding = () => useCardStore((state) => state.isAdding);
+export const useIsEditing = () => useCardStore((state) => state.isEditing)
 export const useToggleIsAdding = () => useCardStore((state) => state.toggleIsAdding);
+export const useToggleIsEditing = () => useCardStore((state) => state.toggleIsEditing);

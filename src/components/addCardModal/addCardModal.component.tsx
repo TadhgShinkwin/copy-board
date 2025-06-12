@@ -16,6 +16,7 @@ import Tag from "../tag/tag.component";
 import {
   useAddCard,
   useToggleIsAdding,
+  useToggleIsEditing,
   useUpdateCard,
 } from "../../stores/cardStore";
 
@@ -38,13 +39,13 @@ const AddCardModal = ({
   const [isinvalidContent, setIsInvalidContent] = useState<boolean>(false);
 
   const toggleIsAdding = useToggleIsAdding();
+  const toggleIsEditing = useToggleIsEditing();
   const updateCard = useUpdateCard();
   const addNewCard = useAddCard();
 
   const inputRef = useRef<HTMLDivElement>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    console.log("handleSubmit called");
     e.preventDefault();
     submitContent();
   };
@@ -78,7 +79,9 @@ const AddCardModal = ({
       addNewCard(newCard);
     }
     setCurrentContent("");
-    toggleIsAdding();
+    if (card) {
+      toggleIsEditing();
+    } else toggleIsAdding();
   };
 
   useEffect(() => {
@@ -124,7 +127,6 @@ const AddCardModal = ({
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             e.preventDefault();
-            console.log("Enter key pressed, submitting form");
             const fakeSubmitEvent = {
               preventDefault: () => {},
             } as unknown as React.FormEvent<HTMLFormElement>;
